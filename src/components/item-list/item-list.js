@@ -21,10 +21,10 @@ export default class ItemList extends Component {
       })
   }
 
-  renderItems(arr) {
+  renderItems = (arr) => {
     return arr.map((item) => {
       const { id } = item;
-      const label = this.props.renderItem(item);
+      const label = this.props.children(item);
 
       return (
         <li className="list-group-item"
@@ -38,13 +38,13 @@ export default class ItemList extends Component {
 
   render() {
 
-    const { itemList: peopleList } = this.state;
+    const { itemList } = this.state;
 
-    if (!peopleList) {
+    if (!itemList) {
       return <Spinner />;
     }
 
-    const items = this.renderItems(peopleList);
+    const items = this.renderItems(itemList);
 
     return (
       <ul className="item-list list-group">
