@@ -6,9 +6,9 @@ import ErrorIndicator from '../error-indicator';
 import SwapiService from '../../services/swapi-service';
 import ErrorBoundry from '../error-boundry';
 import Row from '../row';
+import ItemDetails, { Record } from '../item-details/item-details';
 
 import './app.css';
-import ItemDetails from '../item-details/item-details';
 
 export default class App extends Component {
 
@@ -49,17 +49,19 @@ export default class App extends Component {
      } = this.swapiService;
 
     const personDetails = (
-      <ItemDetails 
-        itemId={11}
-        getData={getPerson}
-        getImageUrl={getPersonImage} />
+      <ItemDetails itemId={11}
+                   getData={getPerson}
+                   getImageUrl={getPersonImage} >
+        <Record field="gender" label="Gender" />
+        <Record field="eyeColor" label="Eye Color" />
+      </ItemDetails>
     )
 
     const starshipDetails = (
-      <ItemDetails 
-        itemId={5}
-         getData={getStarship}
-         getImageUrl={getStarshipImage} />
+      <ItemDetails itemId={5}
+                   getData={getStarship}
+                   getImageUrl={getStarshipImage} >
+      </ItemDetails>
     )
 
     return (
