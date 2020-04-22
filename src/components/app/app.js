@@ -7,6 +7,7 @@ import SwapiService from '../../services/swapi-service';
 import ErrorBoundry from '../error-boundry';
 import Row from '../row';
 import ItemDetails, { Record } from '../item-details/item-details';
+import ItemList from '../item-list';
 
 import './app.css';
 
@@ -41,12 +42,13 @@ export default class App extends Component {
       <RandomPlanet/> :
       null;
 
-    const { 
-      getPerson,
+    const { getPerson,
       getStarship,
       getPersonImage,
-      getStarshipImage
-     } = this.swapiService;
+      getStarshipImage,
+      getAllPeople,
+      getAllPlanets
+    } = this.swapiService;
 
     const personDetails = (
       <ItemDetails itemId={11}
@@ -72,9 +74,22 @@ export default class App extends Component {
         <div className="stardb-app">
           <Header />
 
-          <Row 
+          <ItemList
+            getData={getAllPeople}
+            onItemSelected={() => {}}>
+
+            { ({name}) => <span>{name}</span> }
+          </ItemList>
+
+          <ItemList
+            getData={getAllPeople}
+            onItemSelected={() => {}}>
+
+            { ({name}) => <span>{name}</span> }
+          </ItemList>
+          {/* <Row 
             left={personDetails}
-            right={starshipDetails} />
+            right={starshipDetails} /> */}
         </div>
       </ErrorBoundry>
     );
