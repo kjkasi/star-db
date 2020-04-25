@@ -28,6 +28,17 @@ export default class App extends Component {
 
   state = {
     showRandomPlanet: true,
+    swapiService: new DummySwapiService()
+  }
+
+  onServiceChange = () => {
+    this.setState(({ swapiService }) => {
+      const Service = swapiService instanceof SwapiService ? DummySwapiService : SwapiService;
+      console.log('switched to', Service.name);
+      return {
+        swapiService: new Service()
+      }
+    })
   }
 
   toggleRandomPlanet = () => {
@@ -48,10 +59,8 @@ export default class App extends Component {
       getPerson,
       getStarship,
       getPersonImage,
-      getStarshipImage,
-      getAllPeople,
-      getAllPlanets
-    } = this.swapiService;
+      getStarshipImage
+    } = this.state.swapiService;
 
     const personDetails = (
       <ItemDetails itemId={11}
@@ -74,9 +83,9 @@ export default class App extends Component {
 
     return (
       <ErrorBoundry>
-        <SwapiServiceProvider value={this.swapiService}>
+        <SwapiServiceProvider value={this.state.swapiService} >
           <div className="stardb-app">
-            <Header />
+            <Header onServiceChange={this.onServiceChange} />
 
             <PersonDetails itemId={11} />
 
