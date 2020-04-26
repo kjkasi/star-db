@@ -14,17 +14,17 @@ export default class RandomPlanet extends Component {
   state = {
     planet: {},
     loading: true
-  }
+  };
 
   componentDidMount() {
+    const { updateInterval } = this.props;
     this.updatePlanet();
-    this.interval = setInterval(this.updatePlanet, 2500);
-    clearInterval(this.interval);
-  }
+    this.interval = setInterval(this.updatePlanet, updateInterval);
+  };
 
   componentWillUnmount() {
     clearInterval(this.interval);
-  }
+  };
 
   onPlanetLoaded = (planet) => {
     this.setState({
@@ -32,14 +32,14 @@ export default class RandomPlanet extends Component {
       loading: false,
       error: false
     });
-  }
+  };
 
   onError = (err) => {
     this.setState({
       error: true,
       loading: false
     });
-  }
+  };
 
   updatePlanet = () => {
     const id = Math.floor(Math.random() * (10 - 1)) + 1;
@@ -47,7 +47,7 @@ export default class RandomPlanet extends Component {
       .getPlanet(id)
       .then(this.onPlanetLoaded)
       .catch(this.onError);
-  }
+  };
 
   render() {
 
@@ -65,8 +65,12 @@ export default class RandomPlanet extends Component {
         {spinner}
         {content}
       </div>
-    )
-  }
+    );
+  };
+};
+
+RandomPlanet.defaultProps = {
+  updateInterval: 10000
 }
 
 const PlanetView = ({ planet }) => {
