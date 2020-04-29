@@ -45,6 +45,10 @@ export default class App extends Component {
                      exact />
 
               <Route path="/people"
+                     component={() => <h2>People</h2>}
+                     exact />
+
+              <Route path="/people/:id?"
                      component={PeoplePage} />
 
               <Route path="/planets"
